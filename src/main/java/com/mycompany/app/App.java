@@ -17,6 +17,8 @@ public class App {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Admin\\Desktop\\chromedriver-win64\\chromedriver.exe");   
         WebDriver webDriver = new ChromeDriver();
 
+        // --------------------------------------------
+        System.out.println("Task 1:");
         try {
             webDriver.get("https://www.calculator.net/password-generator.html");
             
@@ -29,16 +31,16 @@ public class App {
             } catch (StaleElementReferenceException e) {
                 System.out.println(e.getMessage());
             }
-            
-            System.out.println("------------------------------------");
+
             System.out.println("Password: " + password);
-            System.out.println("------------------------------------");
             
         } catch (Exception e) {
             System.out.println("Error:");
             e.printStackTrace();
-        } finally {
-            webDriver.quit();
         }
+
+        // --------------------------------------------
+        System.out.println("Task 2:");
+        System.out.println(Task2.task2(webDriver));
     }
 }
