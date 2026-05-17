@@ -21,7 +21,6 @@ public class App {
         System.out.println("Task 1:");
         try {
             webDriver.get("https://www.calculator.net/password-generator.html");
-            
             WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
             
             String password = "";
@@ -34,13 +33,17 @@ public class App {
 
             System.out.println("Password: " + password);
             
-        } catch (Exception e) {
+        } catch (Exception err) {
             System.out.println("Error:");
-            e.printStackTrace();
+            err.printStackTrace();
         }
 
         // --------------------------------------------
         System.out.println("Task 2:");
         System.out.println(Task2.task2(webDriver));
+
+        // --------------------------------------------
+        System.out.println("Task 3:");
+        Task3.task3(webDriver);
     }
 }
