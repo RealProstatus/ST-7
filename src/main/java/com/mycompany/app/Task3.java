@@ -54,7 +54,7 @@ public class Task3 {
         } catch (Exception err) {
             err.printStackTrace();
         } finally {
-            wd.close();
+            wd.quit();
             System.out.println("Task3 succeeded");
         }
     }
