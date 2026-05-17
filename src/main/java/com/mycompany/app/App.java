@@ -1,39 +1,44 @@
 package com.mycompany.app;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
+import org.openqa.selenium.StaleElementReferenceException;
 
 /**
- * Hello world!
+ * Task 1: Password Generator Parsing
  */
 public class App {
     public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Admin\\Desktop\\chromedriver-win64\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Admin\\Desktop\\chromedriver-win64\\chromedriver.exe");   
         WebDriver webDriver = new ChromeDriver();
-        try {
-            webDriver.get("http://api.open-notify.org/astros.json");
-            System.out.println(webDriver.getPageSource());
-            WebElement elem = webDriver.findElement(By.tagName("pre"));
 
-            String json_str = elem.getText();
-            JSONParser parser = new JSONParser();
-            JSONObject obj = (JSONObject) parser.parse(json_str);
-            JSONArray people = (JSONArray) obj.get("people");
-            System.out.println("Список космонавтов на орбите");
-            System.out.println("Количество: " + people.size());
-            for (int i = 0; i < people.size(); ++i) {
-                JSONObject person = (JSONObject) people.get(i);
-                System.out.println((i + 1) + ") " + person.get("craft") + " " + person.get("name"));
+        try {
+            webDriver.get("https://www.calculator.net/password-generator.html");
+            
+            WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+            
+            String password = "";
+            try {
+                WebElement passwordElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='verybigtext']")));
+                password = passwordElement.getText();
+            } catch (StaleElementReferenceException e) {
+                System.out.println(e.getMessage());
             }
-            System.out.println();
+            
+            System.out.println("------------------------------------");
+            System.out.println("Password: " + password);
+            System.out.println("------------------------------------");
+            
         } catch (Exception e) {
-            System.out.println("Error");
-            System.out.println(e.toString());
+            System.out.println("Error:");
+            e.printStackTrace();
+        } finally {
+            webDriver.quit();
         }
     }
 }
